@@ -136,3 +136,51 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }).catch((error) => {
             console.error('Error loading apps:', error);
+        });
+    }
+
+    function postToBlogger(appData) {
+        const bloggerApiUrl = 'https://www.googleapis.com/blogger/v3/blogs/YOUR_BLOG_ID/posts/';
+        const apiKey = 'YOUR_BLOGGER_API_KEY';
+        const postData = {
+            kind: 'blogger#post',
+            blog: {
+                id: 'YOUR_BLOG_ID'
+            },
+            title: `New App Submission: ${appData.name}`,
+            content: `
+                <h2>${appData.name}</h2>
+                <p>${appData.description}</p>
+                <p>Category: ${appData.category}</p>
+                <p>Version: ${appData.version}</p>
+                <p>Icon: <img src="${appData.iconUrl}" alt="${appData.name}" width="50"></p>
+                <p>APK: <a href="${appData.apkUrl}" target="_blank">Download</a></p>
+            `
+        };
+
+        fetch(`${bloggerApiUrl}?key=${apiKey}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        }).then(response => response.json())
+          .then(data => {
+              console.log('Post to Blogger successful:', data);
+          }).catch((error) => {
+              console.error('Error posting to Blogger:', error);
+          });
+    }
+
+    // Authentication state observer
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadAppList();
+        } else {
+            document.getElementById('auth-container').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+    });
+});
