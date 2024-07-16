@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         apiKey: "AIzaSyB-uRJuMdCtwOD9RB8VqxebUSXYrSm_O_k",
         authDomain: "eclectic-app-store.firebaseapp.com",
         projectId: "eclectic-app-store",
-        storageBucket: "eclectic-app-store",
+        storageBucket: "eclectic-app-store.appspot.com",
         messagingSenderId: "1035627658401",
         appId: "1:1035627658401:web:6d21758a9532804d3404e0",
         measurementId: "G-P96P39EVFF"
@@ -16,12 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const db = firebase.firestore();
     const storage = firebase.storage();
 
-    // Toggle between login and signup forms
+    // Show sign-up form and hide login form
     document.getElementById('show-signup').addEventListener('click', () => {
         document.getElementById('login-form').style.display = 'none';
         document.getElementById('signup-form').style.display = 'block';
     });
 
+    // Show login form and hide sign-up form
     document.getElementById('show-login').addEventListener('click', () => {
         document.getElementById('signup-form').style.display = 'none';
         document.getElementById('login-form').style.display = 'block';
@@ -64,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const appName = document.getElementById('app-name').value;
         const appDescription = document.getElementById('app-description').value;
         const appCategory = document.getElementById('app-category').value;
+        const appVersion = document.getElementById('app-version').value;
         const appIcon = document.getElementById('app-icon').files[0];
         const appApk = document.getElementById('app-apk').files[0];
 
@@ -71,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: appName,
             description: appDescription,
             category: appCategory,
+            version: appVersion,
             iconUrl: '',
             apkUrl: ''
         };
@@ -90,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         appData.apkUrl = apkUrl;
                         db.collection('apps').add(appData).then(() => {
                             alert('App submitted successfully!');
+                            postToBlogger(appData); // Post to Blogger
                             loadAppList();
                         }).catch((error) => {
                             console.error('Error submitting app:', error);
@@ -112,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <h3>${app.name}</h3>
                     <p>${app.description}</p>
                     <p>Category: ${app.category}</p>
+                    <p>Version: ${app.version}</p>
                     <p>Icon: <img src="${app.iconUrl}" alt="${app.name}" width="50"></p>
                     <p>APK: <a href="${app.apkUrl}" target="_blank">Download</a></p>
                     <button data-id="${doc.id}">Delete</button>
@@ -131,18 +136,3 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }).catch((error) => {
             console.error('Error loading apps:', error);
-        });
-    }
-
-    // Authentication state observer
-    auth.onAuthStateChanged(user => {
-        if (user) {
-            document.getElementById('auth-container').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-            loadAppList();
-        } else {
-            document.getElementById('auth-container').style.display = 'block';
-            document.getElementById('dashboard').style.display = 'none';
-        }
-    });
-});
