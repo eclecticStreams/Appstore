@@ -1,0 +1,141 @@
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+}
+
+.logo h1 {
+    display: inline;
+    margin-left: 10px;
+    font-size: 24px;
+}
+
+.menu a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    background-color: #5cb85c;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background-color: #4cae4c;
+}
+
+main {
+    padding: 20px 0;
+}
+
+.auth-box {
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form {
+    margin-bottom: 20px;
+}
+
+.auth-form h2 {
+    margin-bottom: 10px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.auth-form input, .auth-form textarea, .auth-form select, .auth-form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.auth-form button {
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.auth-form button:hover {
+    background-color: #4cae4c;
+}
+
+.app-list {
+    margin-top: 20px;
+}
+
+.app-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.app-item button {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.app-item button:hover {
+    background-color: #c9302c;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
